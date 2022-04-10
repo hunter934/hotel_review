@@ -251,7 +251,7 @@ text = df["preprocessed_text"].values
 tfidf_vect = TfidfVectorizer()
 tfidf_vect.fit_transform(text)
 
-with open('Model//model.bin', 'rb') as f_in:
+with open('Model\model.bin', 'rb') as f_in:
   logreg = pickle.load(f_in)
 
 # Create a function to apply the model
