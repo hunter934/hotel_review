@@ -158,7 +158,7 @@ with b2:
 df['letter_count'] = df['preprocessed_text'].astype(str).apply(len)
 
 # Row C
-st.header("Benarkah ulasan negatif lebih panjang?")
+st.header("Benarkah ulasan negatif isinya lebih panjang?")
 c1, c2 = st.columns(2)
 with c1:
   # Create new dataframe contains mean of letter count
