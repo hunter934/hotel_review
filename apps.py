@@ -246,7 +246,7 @@ with d2:
   st.image(Image.open('word_cloud.png'))
 
 # MODELLING
-with open('Model\\nlp-model.bin', 'rb') as f_in:
+with open('Model\nlp-model.bin', 'rb') as f_in:
   logreg_pipe = pickle.load(f_in)
 
 # Create a function to apply the model
