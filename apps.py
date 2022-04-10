@@ -20,11 +20,10 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from PIL import Image
 from textblob import TextBlob
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-from sklearn.pipeline import Pipeline
 import nltk
 from nltk.corpus import stopwords
 from nltk.probability import FreqDist
@@ -246,17 +245,25 @@ with d2:
   st.image(Image.open('word_cloud.png'))
 
 # MODELLING
-with open('Model/nlp-model.bin', 'rb') as f_in:
-  logreg_pipe = pickle.load(f_in)
+# Apply Tfidf Vectorizer (count how many times do a word appear in a sentence)
+text = df["preprocessed_text"].values
+
+tfidf_vect = TfidfVectorizer()
+tfidf_vect.fit_transform(text)
+
+with open('Model//model.bin', 'rb') as f_in:
+  logreg = pickle.load(f_in)
 
 # Create a function to apply the model
 sentiment_map = {0: "Mohon maaf atas ketidaknyamanannya ya :(", 
                   1: "Terima kasih atas masukan positifnya >o<"}
 
 def predict_sentiment(review):
-  review_cleaned = preprocess_text(review)
+  review = preprocess_text(review)
+  review = [review]
+  review = tfidf_vect.transform(review)
 
-  prediction = int( logreg_pipe.predict([review_cleaned]) )
+  prediction = int(logreg.predict(review))
   sentiment = sentiment_map.get(prediction)
 
   return sentiment
