@@ -48,6 +48,7 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.title("🏨 Sentiment Analysis of Hotel Review")
+st.write("by Farizal Hanafi")
 
 # Create Stopwords for Bahasa Indonesia
 nltk.download("stopwords")
